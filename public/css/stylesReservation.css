@@ -1,0 +1,153 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-image: url(../Images/backgroundresev.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #333;
+  }
+
+  .top-banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #0e6fb3;
+    padding: 10px 20px;
+    height: 30px;
+  }
+
+  .circle {
+  position: absolute;
+  top: -30px;
+  left: 7%;
+  transform: translateX(-50%);
+  width: 320px;
+  height: 150px;
+  background-color: #ffffff;
+  border-bottom-left-radius: 150px;
+  border-bottom-right-radius: 150px;
+}
+
+.circle img {
+  max-width: 500px;
+  height: auto;
+  margin-left: -90px;
+  margin-top: -110px;
+  
+}
+
+  .icons {
+    display: flex;
+   
+  }
+
+  .icon1 {
+    font-size: 1.5em;
+    color: white;
+    margin-left: 500px;
+    cursor: pointer;
+  }
+
+  .icon2 {
+    font-size: 1.5em;
+    color: white;
+    margin-left: 300px;
+    cursor: pointer;
+  }
+
+  h1{
+    position: absolute;
+    top:0;
+    left: 18%;
+    color: #ffffff;
+    font-size: 2.5em;
+    margin-top: 0;
+}
+
+  .container {
+    max-width: 900px;
+    margin: 5px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    margin-left: 10px;
+  }
+
+  article {
+    border: 5px solid #95c019;
+    background-color: #95c019;
+    margin-top: 15px;
+    width: 100%;
+    height: 50px;
+  }
+
+  article h2{
+    margin-top: 20px;
+    color: #ffffff;
+    font-size: 1.5em;
+    margin-left: 10px;
+  }
+
+  form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 45%;
+    margin-top: 10px;
+  }
+
+  .full-width {
+    flex: 1 1 100%;
+    flex-direction: column;
+    display: flex;
+  }
+
+  label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: rgb(84, 139, 139);
+  }
+  input[type=text], input[type=date], select, textarea {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: Arial, sans-serif;
+    font-size: 1em;
+  }
+
+  .radio-group {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-top: 5px;
+  }
+
+  button {
+    display: block;
+    margin: 20px auto 0;
+    padding: 12px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 1em;
+    cursor: pointer;
+    width: 150px;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+
+  /* Responsive pour petits écrans */
+  @media(max-width: 768px) {
+    .form-group {
+      flex: 1 1 100%;
+    }
+  }

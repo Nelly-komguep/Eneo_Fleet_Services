@@ -1,0 +1,215 @@
+ * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #fafafa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .circle {
+      position: absolute;
+      border-radius: 50%;
+      background: #28a745;
+      opacity: 0.7;
+    }
+    .circle.small { width: 20px; height: 20px; }
+    .circle.small1 { width: 10px; height: 10px; }
+    .circle.medium { width: 40px; height: 40px; }
+    .circle.big { width: 150px; height: 150px; }
+    .circle.big1 { width: 700px; height: 700px; }
+    .circle.big2 { width: 120px; height: 120px; }
+
+    .circle.top-left { top: -100px; left: -100px; }
+    .circle.bottom-left { bottom: -40px; left: -40px; }
+    .circle.top-right { top: -40px; right: -40px; }
+    .circle.random2 { top: 10%; left: 40%; }
+    .circle.random1 { top: 10%; right: 20%; }
+    .circle.random3 { top: 35%; left: 45%; }
+    .circle.random4 { top: 70%; left: 45%; }
+    .circle.random5 { top: 40%; right: 5%; }
+
+    .container {
+      display: flex;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      overflow: hidden;
+      max-width: 600px;
+      margin-right: 150px;
+      width: 90%;
+    }
+
+    .left {
+      flex: 1;
+      background: transparent;
+      display: flex;
+      position: relative;
+      padding: 20px;
+      margin-right: -500px;
+      margin-left: 100px;
+    }
+
+    .left img {
+      width: 650px;
+      height: auto;
+    }
+
+    .right {
+      flex: 1;
+      padding: 40px;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .right h1 {
+      font-size: 26px;
+      font-weight: bold;
+      color: #111;
+    }
+
+    .right p {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 30px;
+    }
+
+    .field {
+  position: relative;
+  margin-bottom: 20px;
+  
+}
+
+.field input {
+  width: 100%;
+  padding: 10px;
+  padding-right: 35px; 
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.field .icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%); 
+  font-size: 16px;
+  color: #999;
+}
+
+.field .error {
+  display: block;
+  font-size: 12px;
+  color: red;
+  margin-top: 3px;
+}
+
+
+    .form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .form .field {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .form label {
+      font-size: 13px;
+      color: black;
+      margin-bottom: 6px;
+    }
+
+    .form input {
+      border: none;
+      border-bottom: 2px solid black;
+      padding: 6px 0 6px 25px;
+      font-size: 15px;
+      outline: none;
+      color: gray;
+    }
+
+    .form .icon {
+      position: absolute;
+      left: 0;
+      bottom: 8px;
+      font-size: 18px;
+    }
+
+    .form .full {
+      grid-column: span 2;
+    }
+
+   
+
+    #name-error, #email-error, #password-error, #confirm-error {
+    display: block;
+    font-size: 12px;
+    margin-top: 3px;
+    color: red;
+}
+
+.text-danger {
+    color: red !important;
+     transform: translateY(-40%) !important;
+}
+
+.text-success {
+    color: green !important;
+    transform: translateY(-5%) !important;
+}
+
+button[type="submit"] {
+      padding: 12px;
+      border: none;
+      border-radius: 25px;
+      background: linear-gradient(135deg, #28a745, #1d5edb);
+      color: #fff;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+      width: 150px;
+}
+
+button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+ .signin-text a{
+    color:#7cc4ff;
+    text-decoration:none;
+    font-weight:600;
+  }
+  .signin-text a:hover{ text-decoration:underline; }
+
+  a{
+    text-decoration: none;
+  }
+
+
+    @media(max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+      .form {
+        grid-template-columns: 1fr;
+      }
+      .form .full {
+        grid-column: span 1;
+      }
+    }

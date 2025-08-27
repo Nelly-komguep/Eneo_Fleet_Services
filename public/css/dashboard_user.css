@@ -1,0 +1,317 @@
+* {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f4f8;
+    display: flex;
+  }
+
+  /* Sidebar gauche */
+  .sidebar {
+    width: 220px;
+    background-color: #2e7d32;
+    height: 100vh;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+  .sidebar h2 {
+    color: #fff;
+    margin-top: 0;
+    font-size: 1.4em;
+  }
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 30px;
+    color: bisque;
+  }
+  .sidebar ul li {
+    padding: 12px 8px;
+    cursor: pointer;
+    font-size: 1em;
+    border-radius: 4px;
+  }
+  .sidebar ul li:hover {
+    background-color: #1b5e20;
+  }
+.sidebar ul li.active {
+  background-color: #1b5e20;
+  font-weight: bold;
+  box-shadow: inset 3px 0 0 #c8e6c9;
+}
+  /* Contenu principal */
+  .main {
+    margin-left: 220px;
+    padding: 20px;
+    width: calc(100% - 220px);
+  }
+
+  /* Entête */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .header h1 {
+    color: #2e7d32;
+    font-size: 2em;
+  }
+  .buttons-group button {
+    padding: 10px 15px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 1em;
+    cursor: pointer;
+  }
+  .btn-add {
+    background-color: #00695c;
+    color: #fff;
+  }
+  .btn-import {
+    background-color: #546e7a;
+    color: #fff;
+  }
+
+  /* Grille de cartes */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+  }
+
+  /* Chaque carte */
+  .card {
+    background-color: #d0f0c0;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+  }
+  .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+ .card h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    color: #2e7d32;
+  }
+.container {
+  margin-top: 30px;
+}
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.custom-table th, .custom-table td {
+  padding: 12px 15px;
+  border: 1px solid #e0e0e0;
+  text-align: left;
+  font-size: 0.95em;
+}
+.custom-table thead {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+.custom-table tbody tr:hover {
+  background-color: #f1f8e9;
+}
+
+
+/* Boutons modifier/supprimer */
+.btn {
+  padding: 6px 12px;
+  font-size: 0.9em;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.btn-edit {
+  background-color: #388e3c;
+  color: white;
+}
+.btn-delete {
+  background-color: #d32f2f;
+  color: white;
+}
+.btn-edit:hover {
+  background-color: #2e7d32;
+}
+.btn-delete:hover {
+  background-color: #b71c1c; 
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.action-buttons form {
+  margin: 0;
+}
+
+  .stat {
+    font-size: 2em;
+    font-weight: bold;
+    color: #2e7d32;
+    margin-bottom: 5px;
+  }
+  .stat-desc {
+    font-size: 0.9em;
+    color: #555;
+  }
+
+.admin-profile {
+  display: flex;
+  align-items: center;
+  margin-top: 590px;
+  gap: 10px;
+  color: white;
+}
+.avatar {
+  width: 40px;
+  height: 40px;
+  background-color: #a5d6a7;
+  border-radius: 50%;
+  background-image: url('https://via.placeholder.com/40'); 
+  background-size: cover;
+  background-position: center;
+}
+.admin-info {
+  display: flex;
+  flex-direction: column;
+}
+.logout-link {
+  color: #ffcdd2;
+  font-size: 0.85em;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.logout-link:hover {
+  color: #ef9a9a;
+}
+/* Bouton principal */
+.btn-reservation {
+  background: linear-gradient(135deg, #007bff, #3ba35a);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0px 4px 10px rgba(0, 123, 255, 0.3);
+}
+
+.btn-reservation:hover {
+  background: linear-gradient(135deg, #0056b3, #0099cc);
+  transform: translateY(-2px);
+  box-shadow: 0px 6px 14px rgba(0, 123, 255, 0.5);
+}
+
+.modal-reservation {
+  font-family: Arial, sans-serif;
+}
+
+.modal-reservation .modal-header {
+  background: #007bff;
+  color: white;
+  padding: 15px 20px;
+  border-bottom: 1px solid #eee;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.modal-reservation .modal-body {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.modal-reservation form label {
+  display: block;
+  font-size: 14px;
+  margin-top: 15px;
+}
+
+.modal-reservation form input,
+.modal-reservation form textarea,
+.modal-reservation form select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.modal-reservation form textarea {
+  resize: vertical;
+}
+
+.modal-reservation form button {
+  margin-top: 20px;
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+}
+
+.modal-reservation form button:hover {
+  background: #0056b3;
+}
+
+.modal-reservation .checkbox {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+
+
+.pagination {
+    margin-top: 15px;
+    gap: 5px;
+}
+
+.page-link {
+    border-radius: 8px !important;
+    padding: 8px 14px;
+    font-size: 14px;
+    color: #007bff;
+    transition: all 0.2s ease-in-out;
+}
+
+.page-link:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+.page-item.active .page-link {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+
+
+
+
