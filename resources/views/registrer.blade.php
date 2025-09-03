@@ -6,6 +6,7 @@
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
    <link rel="stylesheet" href="{{ asset('css/register.css')}}">
+   <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>Registrer</title>
 </head>
 <body>
@@ -74,10 +75,29 @@
         <span class="text-danger">{{ $errors->first('g-recaptcha-response') }}</span>
     @endif
         </div>
+
         <div class="field">
         <button type="submit">Enregistrer</button>
         <p>Avez vous deja un compte ? <a href="../" class="signin-text">Connectez vous</a></p>
         </div>
+
+  <div class="field">
+  <label>Métier(s)</label>
+  <div id="job-selector" class="job-selector">
+      <div class="job-chip" data-id="Plombier">Chauffeur</div>
+      <div class="job-chip" data-id="Électricien">Administrateur</div>
+      <div class="job-chip" data-id="Mécanicien">Electricien</div>
+      <div class="job-chip" data-id="Chauffeur">Gestionnaire</div>
+  </div>
+  <input type="hidden" name="jobs" id="selected-jobs">
+</div>
+
+<!-- Zone d'affichage des métiers choisis -->
+<div class="field">
+  <label>Métiers choisis :</label>
+  <div id="jobs-added" class="jobs-added"></div>
+</div>
+
       </form>
       
     </div>
@@ -85,6 +105,75 @@
 
    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
    <script src="{{ asset('js/register.js') }}"></script>
+<script>
+$(document).ready(function () {
+    let selectedJobs = [];
+
+    $(".job-chip").on("click", function () {
+        let jobName = $(this).text().trim();
+
+        if ($(this).hasClass("selected")) {
+            $(this).removeClass("selected");
+            selectedJobs = selectedJobs.filter(j => j !== jobName);
+            $(`#jobs-added .added-chip[data-name='${jobName}']`).remove();
+        } else {
+            $(this).addClass("selected");
+            selectedJobs.push(jobName);
+            $("#jobs-added").append(`<div class="added-chip" data-name="${jobName}">${jobName}</div>`);
+        }
+
+        //  Mettre à jour le champ caché
+        $("#selected-jobs").val(selectedJobs.join(","));
+    });
+
+    // S'assurer que le champ est toujours rempli avant l'envoi
+    $("form").on("submit", function () {
+        $("#selected-jobs").val(selectedJobs.join(","));
+    });
+});
+// Vérification disponibilité Nom / Email avec AJAX
+$("#name, #email").on("blur", function() {
+    let field = $(this).attr("id");
+    let value = $(this).val();
+    let icon = $("#" + field + "-icon");
+    let errorSpan = $("#" + field + "-error");  
+
+    if (value.trim() === "") {
+        icon.find("i").removeClass().addClass("ri-user-fill"); // ou ri-mail-fill selon le champ
+        errorSpan.text(""); 
+        return;
+    }
+
+    // Afficher le spinner Remixicon
+    let iTag = icon.find("i");
+    iTag.removeClass().addClass("ri-loader-4-line ri-spin text-secondary");
+    errorSpan.text("");
+
+    $.ajax({
+        url: "/check-field",
+        method: "POST",
+        data: {
+            _token: $('meta[name="csrf-token"]').attr('content'),
+            field: field,
+            value: value
+        },
+        success: function(response) {
+            if (response.exists) {
+                // Afficher croix rouge
+                if(field === "name") iTag.removeClass().addClass("ri-user-fill text-danger");
+                else iTag.removeClass().addClass("ri-mail-fill text-danger");
+                errorSpan.text("Ce " + (field === "email" ? "email" : "nom") + " est déjà utilisé.")
+                         .css("color", "red");
+            } else {
+                // Afficher check vert
+                if(field === "name") iTag.removeClass().addClass("ri-user-fill text-success");
+                else iTag.removeClass().addClass("ri-mail-fill text-success");
+                errorSpan.text("");
+            }
+        }
+    });
+});
+</script>
 
 <!-- Script JS reCAPTCHA -->
 {!! NoCaptcha::renderJs() !!}

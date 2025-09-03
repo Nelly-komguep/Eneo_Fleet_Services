@@ -10,6 +10,7 @@ use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\PhoneAuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservationExportController;
+use App\Http\Controllers\VehiculeController;
 
 use function PHPUnit\Framework\callback;
 
@@ -66,10 +67,7 @@ Route::get('/dashboard-user/statut/{statut}', [ReservationController::class, 'da
 Route::get('/dashboard-superAdmin/statut/{statut}', [ReservationController::class, 'filtreParStatut'])->name('dashboard.superAdmin.statut');
 
 Route::get('/check-unique', [App\Http\Controllers\AuthController::class, 'checkUnique'])->name('check.unique');
-Route::post('/check-field', function (Request $request) {
-    $exists = User::where($request->field, $request->value)->exists();
-    return response()->json(['exists' => $exists]);
-})->name('check.field');
+Route::post('/check-field', [AuthController::class, 'checkField']);
 
 Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('auth.google');
 Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('google.callback');
@@ -81,12 +79,26 @@ Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallba
 // Route::get('/phone', [AuthController::class, 'showPhoneLogin'])->name('phone.login.page');
 // Route::post('/phone-login', [AuthController::class, 'loginWithPhone'])->name('phone.login');
 
-Route::get('/dashboardVehicule', function () {
-    return view('dashboardVehicule');
-})->name('dashboardVehicule');
+// Route::get('/dashboardVehicule', function () {
+//     return view('dashboardVehicule');
+// })->name('dashboardVehicule');
 
 Route::get('/export-pdf', [ReservationController::class, 'exportPdf'])->name('reservations.exportPdf');
 Route::get('/export-csv', [ReservationController::class, 'exportCsv'])->name('reservations.exportCsv');
+
+Route::get('login/twitter', [GoogleController::class, 'redirectToTwitter'])->name('login.twitter');
+Route::get('login/twitter/callback', [GoogleController::class, 'handleTwitterCallback']);
+
+// Route::resource('vehicules', VehiculeController::class);
+Route::get('/dashboardVehicule', [VehiculeController::class, 'index'])->name('dashboardVehicule');
+Route::post('/dashboardVehicule', [VehiculeController::class, 'store'])->name('vehicules.store.dashboard');
+
+Route::put('/vehicules/{vehicule}', [VehiculeController::class, 'update'])->name('vehicules.update');
+Route::delete('/vehicules/{vehicule}', [VehiculeController::class, 'destroy'])->name('vehicules.destroy');
+
+
+// Route::get('login/facebook', [GoogleController::class, 'redirectToFacebook'])->name('login.facebook');
+// Route::get('login/facebook/callback', [GoogleController::class, 'handleFacebookCallback']);
 
 // Route::get('/', function () {
 //     return view('login');

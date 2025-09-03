@@ -75,6 +75,66 @@
     background-color: #00695c;
     color: #fff;
   }
+  .modal-reservation {
+  font-family: Arial, sans-serif;
+}
+
+.modal-reservation .modal-header {
+  background: #007bff;
+  color: white;
+  padding: 15px 20px;
+  border-bottom: 1px solid #eee;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.modal-reservation .modal-body {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.modal-reservation form label {
+  display: block;
+  font-size: 14px;
+  margin-top: 15px;
+}
+
+.modal-reservation form input,
+.modal-reservation form textarea,
+.modal-reservation form select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.modal-reservation form textarea {
+  resize: vertical;
+}
+
+.modal-reservation form button {
+  margin-top: 20px;
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+}
+
+.modal-reservation form button:hover {
+  background: #0056b3;
+}
+
+.modal-reservation .checkbox {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
   .btn-import {
     background-color: #546e7a;
     color: #fff;

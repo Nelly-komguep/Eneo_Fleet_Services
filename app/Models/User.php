@@ -24,6 +24,7 @@ class User extends Authenticatable
         'password',
         'role',
         'profile_image',
+        'jobs'
     ];
     
 
@@ -49,4 +50,5 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
 }

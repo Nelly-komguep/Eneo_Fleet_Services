@@ -9,46 +9,6 @@ document.getElementById('role').addEventListener('change', function() {
     }
 });
 
-// Vérification disponibilité Nom / Email avec AJAX
-$("#name, #email").on("blur", function() {
-    let field = $(this).attr("id");
-    let value = $(this).val();
-    let icon = $("#" + field + "-icon");
-    let errorSpan = $("#" + field + "-error");  
-
-    if (value.trim() === "") {
-        icon.removeClass().text("");
-        errorSpan.text(""); 
-        return;
-    }
-
-    // Afficher le spinner
-    icon.find("i")
-    .removeClass("fa-check fa-times fa-spinner fa-spin text-success text-danger text-secondary")
-    .addClass("fas fa-spinner fa-spin text-secondary");
-    errorSpan.text("");
-
-    $.ajax({
-        url: "/check-field", // route définie dans web.php
-        method: "POST",
-        data: {
-            _token: $('meta[name="csrf-token"]').attr('content'),
-            field: field,
-            value: value
-        },
-        success: function(response) {
-            if (response.exists) {
-                icon.removeClass().addClass("fas fa-times text-danger");
-                errorSpan.text("Ce " + (field === "email" ? "email" : "nom") + " est déjà utilisé.")
-                         .css("color", "red");
-            } else {
-                icon.removeClass().addClass("fas fa-check text-success");
-                errorSpan.text("");
-            }
-        }
-    });
-});
-
 
 
 // Vérification des mots de passe

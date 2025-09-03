@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Support\Str;
+use App\Models\Job;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Support\Facades\Session;
 
@@ -18,8 +19,9 @@ class AuthController extends Controller
 
     public function log(Request $request) {
         $credentials = $request->only('name', 'password');
+        $remember = $request->filled('remember'); 
 
-         if (Auth::attempt($credentials)) {
+         if (Auth::attempt($credentials, $remember)) {
         $user = Auth::user();
 
         session([
@@ -42,7 +44,8 @@ class AuthController extends Controller
         ]);
     }
     public function showRegistration() {
-        return view('registrer');
+       return view('registrer');
+        
     }
 
     public function reg(Request $request) {
@@ -53,6 +56,7 @@ class AuthController extends Controller
             'g-recaptcha-response' => 'required|captcha',
             'role' => 'required|string',
             'code' => 'nullable|string',
+            'jobs' => 'nullable|string',
         ]);
 
         $imageUrl = null;
@@ -89,6 +93,7 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
             'role' => $request->role,
             'profile_image' => $imageUrl,
+            'jobs' => $request->jobs,
         ]);
 
         // Connecter automatiquement l'utilisateur
@@ -148,5 +153,20 @@ public function loginWithPhone(Request $request)
 
     return redirect()->route('login'); 
 }
+
+public function checkField(Request $request)
+{
+    $field = $request->input('field');
+    $value = $request->input('value');
+
+    if (!in_array($field, ['name', 'email'])) {
+        return response()->json(['exists' => false]);
+    }
+
+    $exists = \App\Models\User::where($field, $value)->exists();
+
+    return response()->json(['exists' => $exists]);
+}
+
 
 }

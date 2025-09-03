@@ -201,6 +201,47 @@ button:disabled {
     text-decoration: none;
   }
 
+  .job-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.job-chip {
+  padding: 8px 15px;
+  border-radius: 20px;
+  background: #f1f1f1;
+  cursor: pointer;
+  transition: 0.2s;
+  user-select: none;
+}
+
+.job-chip:hover {
+  background: #e0e0e0;
+}
+
+.job-chip.selected {
+  background: #00c896;
+  color: white;
+  font-weight: bold;
+}
+
+.jobs-added {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.jobs-added .added-chip {
+  background: #00c896;
+  color: white;
+  padding: 5px 12px;
+  border-radius: 15px;
+  font-size: 14px;
+}
+
+
 
     @media(max-width: 768px) {
       .container {

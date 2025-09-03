@@ -22,8 +22,8 @@
     <section class="left" aria-label="Aperçu voiture"> 
       <div class="left-bottom">
         <div class="social" aria-label="Connexion sociale">
-          <a href="#" title="Facebook"><i class="ri-facebook-fill"></i></a>
-          <a href="#" title="Twitter"><i class="ri-twitter-x-line"></i></a>
+          {{-- <a href="{{ route('login.facebook') }}" title="Facebook"><i class="ri-facebook-fill"></i></a> --}}
+          <a href="{{ route('login.twitter') }}" title="Twitter"><i class="ri-twitter-x-line"></i></a>
           <a href="{{ route('auth.google') }}" title="Google" class="btn-social google"><i class="ri-google-line"></i></a>
         </div>
         <div class="signup">
@@ -52,7 +52,7 @@
 
         <div class="row">
           <label class="checkbox">
-            <input type="checkbox" id="remember" />
+            <input type="checkbox" id="remember" name="remember"/>
             <span>Se souvenir de moi</span>
           </label>
         </div>
