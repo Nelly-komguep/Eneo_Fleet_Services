@@ -2,18 +2,18 @@ services:
   - type: web
     name: laravel-app
     env: docker
-    plan: free
     dockerfilePath: ./Dockerfile
+    plan: free
     autoDeploy: true
     envVars:
       - key: APP_ENV
         value: production
-      - key: APP_KEY
-        sync: false
       - key: APP_DEBUG
         value: false
       - key: APP_URL
-        value: https://Eneo_Fleet_Services.onrender.com
+        value: https://Fleet_Services.com
+      - key: APP_KEY
+        sync: false   # Render va en générer un automatiquement
       - key: DB_CONNECTION
         value: mysql
       - key: DB_HOST
@@ -26,8 +26,4 @@ services:
         value: root
       - key: DB_PASSWORD
         sync: false
-    buildCommand: |
-      php artisan key:generate --force
-      php artisan config:cache
-      php artisan route:cache
-    startCommand: php artisan serve --host=0.0.0.0 --port=8000
+
