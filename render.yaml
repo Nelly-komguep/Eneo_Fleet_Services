@@ -1,14 +1,33 @@
 services:
   - type: web
-    name: Eneo_Fleet_Services
+    name: laravel-app
     env: docker
-    repo: https://github.com/Nelly-komguep/Eneo_Fleet_Services
-    branch: main
+    plan: free
     dockerfilePath: ./Dockerfile
-    env:
+    autoDeploy: true
+    envVars:
       - key: APP_ENV
         value: production
+      - key: APP_KEY
+        sync: false
       - key: APP_DEBUG
-        value: "false"
-      - key: PORT
-        value: "10000"
+        value: false
+      - key: APP_URL
+        value: https://Eneo_Fleet_Services.onrender.com
+      - key: DB_CONNECTION
+        value: mysql
+      - key: DB_HOST
+        value: 127.0.0.1
+      - key: DB_PORT
+        value: 3306
+      - key: DB_DATABASE
+        value: eneo_fleet_services
+      - key: DB_USERNAME
+        value: root
+      - key: DB_PASSWORD
+        sync: false
+    buildCommand: |
+      php artisan key:generate --force
+      php artisan config:cache
+      php artisan route:cache
+    startCommand: php artisan serve --host=0.0.0.0 --port=8000
