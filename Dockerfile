@@ -25,7 +25,8 @@ RUN php artisan key:generate --force || true
 # Exposer le port
 EXPOSE 80
 
-# Démarrer Apache
-CMD ["apache2-foreground"]
+# Lancer migrations + Apache
+CMD php artisan migrate --force && apache2-foreground
+
 
 
