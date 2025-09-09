@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: Eneo_Fleet_Services
+    env: docker
+    repo: https://github.com/Nelly-komguep/Eneo_Fleet_Services
+    branch: main
+    dockerfilePath: ./Dockerfile
+    env:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: PORT
+        value: "10000"
