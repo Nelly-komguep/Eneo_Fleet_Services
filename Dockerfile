@@ -1,38 +1,31 @@
-# -------- Stage 1 : Composer dependencies --------
-FROM composer:2.7 AS vendor
+FROM php:8.2-apache
 
-WORKDIR /app
-
-# Copier composer.json + composer.lock + artisan pour éviter l’erreur
-COPY composer.json composer.lock artisan ./
-
-# Installer les dépendances PHP
-RUN composer install --no-dev --prefer-dist --no-interaction --optimize-autoloader
-
-# -------- Stage 2 : Application --------
-FROM php:8.2-fpm
-
-# Installer extensions PHP nécessaires à Laravel
+# Installer dépendances système
 RUN apt-get update && apt-get install -y \
-    git unzip libpq-dev libzip-dev libpng-dev libonig-dev libxml2-dev curl \
-    && docker-php-ext-install pdo pdo_mysql zip mbstring exif pcntl bcmath gd \
-    && rm -rf /var/lib/apt/lists/*
+    unzip git curl libpng-dev libonig-dev libxml2-dev zip libzip-dev \
+    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
 
+# Installer Composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+# Copier le projet Laravel
 WORKDIR /var/www/html
-
-# Copier dépendances PHP depuis le stage vendor
-COPY --from=vendor /app/vendor ./vendor
-
-# Copier tout le projet Laravel
 COPY . .
 
-# Donner les bons droits à Laravel
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
+# Installer les dépendances Laravel
+RUN composer install --no-dev --optimize-autoloader
+
+# Donner les permissions
+RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Exposer port
-EXPOSE 8000
+# Générer la clé Laravel automatiquement
+RUN php artisan key:generate --force || true
 
-# Commande de démarrage (PHP built-in server pour Render)
-CMD php artisan serve --host=0.0.0.0 --port=8000
+# Exposer le port
+EXPOSE 80
+
+# Démarrer Apache
+CMD ["apache2-foreground"]
+
 
