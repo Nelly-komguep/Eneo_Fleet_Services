@@ -11,7 +11,7 @@ use App\Http\Controllers\PhoneAuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservationExportController;
 use App\Http\Controllers\VehiculeController;
-
+use App\Http\Controllers\NotificationController;
 use function PHPUnit\Framework\callback;
 
 Route::get('/', function () {
@@ -39,7 +39,7 @@ Route::post('/reservation', [ReservationController::class, 'store'])
 
 Route::get('/reservation-dashboard', [ReservationController::class, 'create'])->name('reservation.dashboard');
 Route::post('/reservation-dashboard', [ReservationController::class, 'store'])->name('reserve.store');
-Route::resource('reservations', ReservationController::class);
+Route::resource('reservations', ReservationController::class)->except(['show']);
 // Mise à jour et suppression
 Route::put('/reservations/{id}', [ReservationController::class, 'update'])->name('reservations.update');
 Route::put('/reservations/{id}/statut', [ReservationController::class, 'updateStatus'])->name('reservations.updateStatus');
@@ -83,8 +83,9 @@ Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallba
 //     return view('dashboardVehicule');
 // })->name('dashboardVehicule');
 
-Route::get('/export-pdf', [ReservationController::class, 'exportPdf'])->name('reservations.exportPdf');
-Route::get('/export-csv', [ReservationController::class, 'exportCsv'])->name('reservations.exportCsv');
+// Route::get('/export-pdf', [ReservationController::class, 'exportPdf'])->name('reservations.exportPdf');
+// Route::get('/export-csv', [ReservationController::class, 'exportCsv'])->name('reservations.exportCsv');
+Route::get('/reservations/export', [ReservationExportController::class, 'export'])->name('reservations.export');
 
 Route::get('login/twitter', [GoogleController::class, 'redirectToTwitter'])->name('login.twitter');
 Route::get('login/twitter/callback', [GoogleController::class, 'handleTwitterCallback']);
@@ -96,6 +97,8 @@ Route::post('/dashboardVehicule', [VehiculeController::class, 'store'])->name('v
 Route::put('/vehicules/{vehicule}', [VehiculeController::class, 'update'])->name('vehicules.update');
 Route::delete('/vehicules/{vehicule}', [VehiculeController::class, 'destroy'])->name('vehicules.destroy');
 
+Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+Route::post('/notifications/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.read');
 
 // Route::get('login/facebook', [GoogleController::class, 'redirectToFacebook'])->name('login.facebook');
 // Route::get('login/facebook/callback', [GoogleController::class, 'handleFacebookCallback']);

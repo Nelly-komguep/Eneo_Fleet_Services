@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Exports\ReservationsExport;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\Notification;
 
 
 class ReservationController extends Controller
@@ -49,17 +50,29 @@ class ReservationController extends Controller
         return redirect()->route('dashboard.user')->with('success', 'Réservation créée avec succès');
     }
 
+    Notification::create([
+        // 'reservation_id' => $reservation->id,
+        'user_id' => $reservation->user_id,
+        // 'message' => auth()->user()->name . " a fait une réservation de type " . $reservation->type_reservation . " le " . now()->format('d/m/Y H:i'),
+    ]);
+
     }
 
-        public function dashboardreservation() {
-            // $reservations = reservation::all();
-            $reservations = Reservation::with('user')->orderBy('created_at', 'desc')->paginate(10);
-             $total = $reservations->count();
-             $validees = $reservations->where('statut', 'validee')->count();
-             $rejetee = $reservations->where('statut', 'rejetee')->count();
-             $encours  = $reservations->where('statut', 'en cours')->count();
+    public function dashboardreservation() {
+    // Pour le tableau paginé
+    $reservations = Reservation::with('user')->orderBy('created_at', 'desc')->paginate(10);
 
-              $reservationsParJour = Reservation::select(
+    // Pour les statistiques et diagrammes
+    $allReservations = Reservation::all();
+
+    // Statistiques globales
+    $total = $allReservations->count();
+    $validees = $allReservations->where('statut', 'validee')->count();
+    $rejetee = $allReservations->where('statut', 'rejetee')->count();
+    $encours  = $allReservations->where('statut', 'en cours')->count();
+
+    // Réservations par jour
+    $reservationsParJour = Reservation::select(
         DB::raw('DATE(created_at) as date'),
         DB::raw('count(*) as total')
     )
@@ -71,9 +84,7 @@ class ReservationController extends Controller
     $reservationLabels = $reservationsParJour->pluck('date')->toArray();
     $reservationValues = $reservationsParJour->pluck('total')->toArray();
 
-    // $reservations = Reservation::latest()->get();
-    
-        return view('dashboard', compact(
+    return view('dashboard', compact(
         'total',
         'validees',
         'rejetee',
@@ -81,9 +92,10 @@ class ReservationController extends Controller
         'reservationsParJour',
         'reservationLabels',
         'reservationValues',
-        'reservations'
+        'reservations' // pour le tableau paginé
     ));
-        }
+}
+
 
     public function dashboardUser()
     {
@@ -108,14 +120,20 @@ class ReservationController extends Controller
     
     public function dashboardAdmin()
     {
-        // $reservations = Reservation::all();
-         $reservations = Reservation::with('user')->orderBy('created_at', 'desc')->paginate(10);
-        $total = $reservations->count();
-        $validees = $reservations->where('statut', 'validee')->count();
-        $rejetee = $reservations->where('statut', 'rejetee')->count();
-        $encours  = $reservations->where('statut', 'en cours')->count();
-   
-        $reservationsParJour = Reservation::select(
+    // Pour le tableau paginé
+    $reservations = Reservation::with('user')->orderBy('created_at', 'desc')->paginate(10);
+
+    // Pour les statistiques et diagrammes
+    $allReservations = Reservation::all();
+
+    // Statistiques globales
+    $total = $allReservations->count();
+    $validees = $allReservations->where('statut', 'validee')->count();
+    $rejetee = $allReservations->where('statut', 'rejetee')->count();
+    $encours  = $allReservations->where('statut', 'en cours')->count();
+
+    // Réservations par jour
+    $reservationsParJour = Reservation::select(
         DB::raw('DATE(created_at) as date'),
         DB::raw('count(*) as total')
     )
@@ -127,9 +145,7 @@ class ReservationController extends Controller
     $reservationLabels = $reservationsParJour->pluck('date')->toArray();
     $reservationValues = $reservationsParJour->pluck('total')->toArray();
 
-    // $reservations = Reservation::latest()->get();
-
-        return view('dashboard-superAdmin', compact(
+    return view('dashboard-superAdmin', compact(
         'total',
         'validees',
         'rejetee',
@@ -137,10 +153,9 @@ class ReservationController extends Controller
         'reservationsParJour',
         'reservationLabels',
         'reservationValues',
-        'reservations'
+        'reservations' // pour le tableau paginé
     ));
-}
-    
+}   
 
 public function updateStatus(Request $request, $id)
 {

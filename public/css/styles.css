@@ -192,6 +192,127 @@
     text-align:center; color:#9aa7bd; font-size:.9rem; margin-top:8px;
   }
 
+  .content{
+    display: none;
+  }
+
+  .loader {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #0b57d0, #28a745);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+.loader > div {
+  height: 100px;
+  width: 100px;
+  border: 6px solid rgba(255, 255, 255, 0.2);
+  border-top: 6px solid #ffffff;
+  border-radius: 50%;
+  animation: spin 1.2s linear infinite, pulse 1.5s ease-in-out infinite alternate;
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.3);
+}
+
+/* Texte sous le cercle */
+.loader p {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  display: flex;
+  align-items: center;
+}
+
+/* Petits points animés */
+.dots::after {
+  content: "";
+  animation: dots 1.5s steps(3, end) infinite;
+}
+
+@keyframes dots {
+  0% { content: ""; }
+  33% { content: "."; }
+  66% { content: ".."; }
+  100% { content: "..."; }
+}
+
+/* Animation rotation */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Animation pulse du cercle */
+@keyframes pulse {
+  from { transform: scale(1);  }
+  to { transform: scale(1.2);  }
+}
+
+.btn.loading {
+  position: relative;
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.btn.loading::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 18px;
+  height: 18px;
+  margin: -9px 0 0 -9px;
+  border: 2px solid #fff;
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg);}
+  100% { transform: rotate(360deg);}
+}
+
+
+  /* .loader{
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    background-color: #28a745;
+    position: absolute;
+  }
+
+  .loader div{
+    height: 100px;
+    width: 100px;
+    border: 15px solid #45474b;
+    border-top-color: #0b57d0;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 50%;
+    animation: spin 1.5s infinite linear;
+  }
+
+  @keyframes spin{
+    
+    100%{
+      transform:rotate(360deg);
+    }
+  } */
+
   @media (max-width: 860px){
     .card{ grid-template-columns: 1fr; }
     .left{ min-height:260px; }

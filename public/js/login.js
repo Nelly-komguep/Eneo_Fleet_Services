@@ -30,3 +30,20 @@ function showError(message) {
 
 //  Nettoyage sessionStorage
 sessionStorage.clear();
+
+$(window).on('load',function(){
+    $(".loader").fadeOut(2000);
+    $(".content").fadeIn(2000);
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const loginForm = document.querySelector('form');
+    const loginBtn = loginForm.querySelector('.btn');
+
+    loginForm.addEventListener('submit', function() {
+        // Activer l’état loading
+        loginBtn.classList.add('loading');
+        loginBtn.textContent = "Connexion..."; 
+    });
+});
+

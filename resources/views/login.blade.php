@@ -9,6 +9,11 @@
 </head>
 <body>
     
+  <div class="loader">
+    <div></div>
+    <p>Chargement<span class="dots"></span></p>
+  </div>
+  <div class="content">
 <div class="circle big1 top-left"></div>
   <div class="circle big2 bottom-left"></div>
   <div class="circle big top-right"></div>
@@ -64,6 +69,8 @@
     </section>
 
   </main>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="{{ asset('js/login.js') }}"></script>
 
