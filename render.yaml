@@ -9,11 +9,11 @@ services:
       - key: APP_ENV
         value: production
       - key: APP_DEBUG
-        value: false
+        value: true
       - key: APP_URL
         value: https://Fleet_Services.com
       - key: APP_KEY
-        sync: false   # Render va en générer un automatiquement
+        sync: base64:eoGKNzIeQHi0DXAnoukrTR7tFTQfnylc/zSKdmWUaiY=
       - key: DB_CONNECTION
         value: mysql
       - key: DB_HOST
