@@ -22,6 +22,19 @@ RUN chown -R www-data:www-data /var/www/html \
 # Générer la clé Laravel automatiquement
 RUN php artisan key:generate --force || true
 
+#  Config Apache pour pointer sur /public
+RUN echo '<VirtualHost *:80>\n\
+    DocumentRoot /var/www/html/public\n\
+    <Directory /var/www/html/public>\n\
+        AllowOverride All\n\
+        Require all granted\n\
+    </Directory>\n\
+</VirtualHost>' > /etc/apache2/sites-available/000-default.conf
+
+# Activer mod_rewrite (important pour Laravel routes)
+RUN a2enmod rewrite
+
+
 # Exposer le port
 EXPOSE 80
 
