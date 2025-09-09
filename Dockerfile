@@ -1,36 +1,38 @@
-# ---------- base image ----------
-FROM php:8.2-apache
+# -------- Stage 1 : Composer dependencies --------
+FROM composer:2.7 AS vendor
 
-# Install extensions and tools
-RUN apt-get update && apt-get install -y \
-    git unzip zip libpng-dev libonig-dev libxml2-dev libzip-dev \
-    && docker-php-ext-install pdo_mysql mbstring bcmath gd zip exif \
-    && a2enmod rewrite
+WORKDIR /app
 
-# Composer (copy from official composer image)
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+# Copier composer.json + composer.lock + artisan pour éviter l’erreur
+COPY composer.json composer.lock artisan ./
 
-# Set workdir
-WORKDIR /var/www/html
-
-# copy only composer files first for caching
-COPY composer.json composer.lock ./
+# Installer les dépendances PHP
 RUN composer install --no-dev --prefer-dist --no-interaction --optimize-autoloader
 
-# copy app
+# -------- Stage 2 : Application --------
+FROM php:8.2-fpm
+
+# Installer extensions PHP nécessaires à Laravel
+RUN apt-get update && apt-get install -y \
+    git unzip libpq-dev libzip-dev libpng-dev libonig-dev libxml2-dev curl \
+    && docker-php-ext-install pdo pdo_mysql zip mbstring exif pcntl bcmath gd \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /var/www/html
+
+# Copier dépendances PHP depuis le stage vendor
+COPY --from=vendor /app/vendor ./vendor
+
+# Copier tout le projet Laravel
 COPY . .
 
-# ensure storage permissions
-RUN chown -R www-data:www-data storage bootstrap/cache || true
-RUN chmod -R 775 storage bootstrap/cache || true
+# Donner les bons droits à Laravel
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
+    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Allow Apache to listen on $PORT if Render sets it (modify Apache config at container start)
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
+# Exposer port
+EXPOSE 8000
 
-# Replace Listen 80 with environment PORT at runtime in entrypoint
-# Entrypoint will run composer/migrations then exec apache in foreground
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+# Commande de démarrage (PHP built-in server pour Render)
+CMD php artisan serve --host=0.0.0.0 --port=8000
 
-# Default command (apache foreground)
-CMD ["apache2-foreground"]
