@@ -15,15 +15,15 @@ services:
       - key: APP_KEY
         sync: base64:eoGKNzIeQHi0DXAnoukrTR7tFTQfnylc/zSKdmWUaiY=
       - key: DB_CONNECTION
-        value: pgsql
+        value: mysql
       - key: DB_HOST
-        value: dpg-d30gmgp5pdvs7380c3m0-a
+        value: ${{RAILWAY_PRIVATE_DOMAIN}}
       - key: DB_PORT
-        value: 5432
+        value: 3306
       - key: DB_DATABASE
         value: eneo_fleet_services
       - key: DB_USERNAME
-        value: eneo_fleet_services_user
+        value: root
       - key: DB_PASSWORD
-        sync: GWQpD5MeJRKgO490YGiGKfVZVqrLdKcV
+        sync: bKBpOOpgFfaYcXlSQehZlkqaGOOVBYKy
 
