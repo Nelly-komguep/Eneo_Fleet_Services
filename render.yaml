@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: laravel-app
+    env: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    autoDeploy: true
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: true
+      - key: APP_URL
+        value: https://eneo-fleet-services.onrender.com
+      - key: APP_KEY
+        sync: base64:eoGKNzIeQHi0DXAnoukrTR7tFTQfnylc/zSKdmWUaiY=
+      - key: DB_CONNECTION
+        value: mysql
+      - key: DB_HOST
+        value: ${{RAILWAY_PRIVATE_DOMAIN}}
+      - key: DB_PORT
+        value: 3306
+      - key: DB_DATABASE
+        value: eneo_fleet_services
+      - key: DB_USERNAME
+        value: root
+      - key: DB_PASSWORD
+        sync: bKBpOOpgFfaYcXlSQehZlkqaGOOVBYKy
+
