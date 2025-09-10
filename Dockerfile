@@ -1,49 +1,50 @@
-# Étape 1 : Image de base PHP avec Apache
+# -----------------------------
+# Étape 1 : Base PHP avec Apache
+# -----------------------------
 FROM php:8.2-apache
 
-# Installer dépendances système
+# Installer extensions PHP et utilitaires
 RUN apt-get update && apt-get install -y \
-    git \
-    unzip \
-    curl \
-    libzip-dev \
-    libpng-dev \
-    libonig-dev \
-    libxml2-dev \
-    zip \
-    npm \
-    && docker-php-ext-install pdo pdo_mysql mbstring zip exif pcntl bcmath gd
-
-# Activer mod_rewrite pour Laravel
-RUN a2enmod rewrite
+    libpng-dev libjpeg-dev libfreetype6-dev libonig-dev libxml2-dev zip unzip git curl \
+    nodejs npm \
+    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd \
+    && a2enmod rewrite
 
 # Définir le répertoire de travail
 WORKDIR /var/www/html
 
-# Copier les fichiers Laravel
+# Copier le projet
 COPY . .
 
-# Installer Composer
-COPY --from=composer:2.6 /usr/bin/composer /usr/bin/composer
+# -----------------------------
+# Étape 2 : Installer Composer
+# -----------------------------
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 RUN composer install --no-dev --optimize-autoloader
 
-# Vérifier si Node est utilisé et compiler les assets
+# -----------------------------
+# Étape 3 : Installer Node (si nécessaire pour Vite/Tailwind)
+# -----------------------------
 RUN if [ -f package.json ]; then \
-        curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
-        apt-get install -y nodejs && \
-        npm install && \
-        npm run build; \
+        npm install && npm run build; \
+    else \
+        echo "Pas de build Node nécessaire"; \
     fi
 
-# Définir public comme racine Apache
+# -----------------------------
+# Étape 4 : Configurer Apache pour Laravel
+# -----------------------------
+# DocumentRoot vers public/
 RUN sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available/000-default.conf
 
-# Permissions pour Laravel
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/public \
-    && chmod -R 755 /var/www/html/public
+# Permissions correctes pour storage et cache
+RUN chown -R www-data:www-data storage bootstrap/cache \
+    && chmod -R 775 storage bootstrap/cache
 
-# Exposer le port
+# -----------------------------
+# Étape 5 : Exposer le port
+# -----------------------------
 EXPOSE 80
 
-# Commande pour démarrer Apache en premier plan
+# Commande pour lancer Apache en avant-plan
 CMD ["apache2-foreground"]
