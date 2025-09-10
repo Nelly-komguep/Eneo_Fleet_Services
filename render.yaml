@@ -9,6 +9,7 @@ services:
       - key: APP_ENV
         value: production
       - key: APP_DEBUG
+        LOG_CHANNEL=stderr
         value: true
       - key: APP_URL
         value: https://Fleet_Services.com
@@ -25,5 +26,5 @@ services:
       - key: DB_USERNAME
         value: root
       - key: DB_PASSWORD
-        sync: false
+        sync: 
 
