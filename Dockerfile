@@ -1,36 +1,25 @@
-# Étape 1 : Image PHP avec Apache
 FROM php:8.2-apache
 
-# Installer les extensions PHP nécessaires
+# Installer les extensions PHP nécessaires à Laravel
 RUN apt-get update && apt-get install -y \
-    git unzip libpq-dev libzip-dev zip curl gnupg \
-    && docker-php-ext-install pdo pdo_mysql pdo_pgsql zip
+    libpng-dev libjpeg-dev libfreetype6-dev libonig-dev libxml2-dev zip unzip git curl \
+    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 
 # Activer mod_rewrite pour Laravel
 RUN a2enmod rewrite
 
-# Copier les fichiers de l'application
+# Copier tout ton projet Laravel
 WORKDIR /var/www/html
 COPY . .
 
-# Étape 2 : Installer Composer
+# Installer Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
-
-# Installer les dépendances PHP (Laravel)
 RUN composer install --no-dev --optimize-autoloader
 
-# Étape 3 : Installer Node.js 20 et compiler les assets avec Vite
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
-    && apt-get install -y nodejs \
-    && npm install \
-    && npm run build
-
-# Définir les permissions (important pour Laravel storage et cache)
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
-    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+# Donner les bonnes permissions
+RUN chown -R www-data:www-data storage bootstrap/cache
 
 # Exposer le port
 EXPOSE 80
 
-# Lancer Apache
 CMD ["apache2-foreground"]
