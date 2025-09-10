@@ -1,50 +1,52 @@
-# -----------------------------
-# Étape 1 : Base PHP avec Apache
-# -----------------------------
+# Étape 1 : Image de base PHP avec Apache
 FROM php:8.2-apache
 
-# Installer extensions PHP et utilitaires
+# Installer dépendances système et extensions PHP
 RUN apt-get update && apt-get install -y \
-    libpng-dev libjpeg-dev libfreetype6-dev libonig-dev libxml2-dev zip unzip git curl \
-    nodejs npm \
-    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd \
-    && a2enmod rewrite
+    git \
+    unzip \
+    curl \
+    libzip-dev \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    zip \
+    && docker-php-ext-install pdo pdo_mysql mbstring zip exif pcntl bcmath gd
+
+# Activer mod_rewrite pour Laravel
+RUN a2enmod rewrite
+
+# Installer Node.js 20
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs
 
 # Définir le répertoire de travail
 WORKDIR /var/www/html
 
-# Copier le projet
+# Copier les fichiers Laravel
 COPY . .
 
-# -----------------------------
-# Étape 2 : Installer Composer
-# -----------------------------
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+# Installer Composer
+COPY --from=composer:2.6 /usr/bin/composer /usr/bin/composer
 RUN composer install --no-dev --optimize-autoloader
 
-# -----------------------------
-# Étape 3 : Installer Node (si nécessaire pour Vite/Tailwind)
-# -----------------------------
+# Compiler les assets Node/Vite si package.json existe
 RUN if [ -f package.json ]; then \
-        npm install && npm run build; \
+        npm install && \
+        npm run build; \
     else \
         echo "Pas de build Node nécessaire"; \
     fi
 
-# -----------------------------
-# Étape 4 : Configurer Apache pour Laravel
-# -----------------------------
-# DocumentRoot vers public/
+# Définir public comme racine Apache
 RUN sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available/000-default.conf
 
-# Permissions correctes pour storage et cache
-RUN chown -R www-data:www-data storage bootstrap/cache \
-    && chmod -R 775 storage bootstrap/cache
+# Permissions pour Laravel
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/public \
+    && chmod -R 755 /var/www/html/public
 
-# -----------------------------
-# Étape 5 : Exposer le port
-# -----------------------------
+# Exposer le port
 EXPOSE 80
 
-# Commande pour lancer Apache en avant-plan
+# Commande pour démarrer Apache en premier plan
 CMD ["apache2-foreground"]
