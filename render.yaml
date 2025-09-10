@@ -9,22 +9,21 @@ services:
       - key: APP_ENV
         value: production
       - key: APP_DEBUG
-        LOG_CHANNEL=stderr
         value: true
       - key: APP_URL
-        value: https://Fleet_Services.com
+        value: https://eneo-fleet-services.onrender.com
       - key: APP_KEY
         sync: base64:eoGKNzIeQHi0DXAnoukrTR7tFTQfnylc/zSKdmWUaiY=
       - key: DB_CONNECTION
-        value: mysql
+        value: pgsql
       - key: DB_HOST
-        value: 127.0.0.1
+        value: dpg-d30gmgp5pdvs7380c3m0-a
       - key: DB_PORT
-        value: 3306
+        value: 5432
       - key: DB_DATABASE
         value: eneo_fleet_services
       - key: DB_USERNAME
-        value: root
+        value: eneo_fleet_services_user
       - key: DB_PASSWORD
-        sync: 
+        sync: GWQpD5MeJRKgO490YGiGKfVZVqrLdKcV
 
