@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css"/>
 <link rel="stylesheet" href="{{ asset('css/styles.css')}}">
 <title>Login Eneo Fleet Service</title>
+@vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
     
