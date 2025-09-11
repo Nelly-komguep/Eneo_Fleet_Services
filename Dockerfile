@@ -13,6 +13,10 @@ COPY . /var/www/html
 # Définir le répertoire de travail
 WORKDIR /var/www/html
 
+# Changer DocumentRoot pour pointer vers /public
+RUN sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available/000-default.conf \
+    && sed -i 's|/var/www/|/var/www/html/public|g' /etc/apache2/apache2.conf
+
 # Donner les permissions correctes
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
