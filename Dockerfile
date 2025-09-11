@@ -19,8 +19,11 @@ RUN composer install --no-dev --optimize-autoloader
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Exposer le port que Render fournira
-EXPOSE 14467
+# Exposer un port générique (Render remplacera $PORT)
+EXPOSE 10000
+
+# Lancer PHP sur le port fourni par Render
+CMD ["sh", "-c", "php -S 0.0.0.0:$PORT -t public"]
 
 # Lancer Laravel via PHP intégré
 CMD ["php", "-S", "0.0.0.0:10000", "-t", "public"]
