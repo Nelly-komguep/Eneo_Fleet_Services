@@ -20,7 +20,7 @@ RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html/storage /var/www/html/bootstrap/cache
 
 # Exposer le port que Render fournira
-EXPOSE 10000
+EXPOSE 14467
 
 # Lancer Laravel via PHP intégré
 CMD ["php", "-S", "0.0.0.0:10000", "-t", "public"]
