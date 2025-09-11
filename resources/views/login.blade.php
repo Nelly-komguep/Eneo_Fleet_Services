@@ -28,8 +28,8 @@
       <div class="left-bottom">
         <div class="social" aria-label="Connexion sociale">
           {{-- <a href="{{ route('login.facebook') }}" title="Facebook"><i class="ri-facebook-fill"></i></a> --}}
-          <a href="{{ route('login.twitter') }}" title="Twitter"><i class="ri-twitter-x-line"></i></a>
-          <a href="{{ route('auth.google') }}" title="Google" class="btn-social google"><i class="ri-google-line"></i></a>
+          <a href="{{ secure_route('login.twitter') }}" title="Twitter"><i class="ri-twitter-x-line"></i></a>
+          <a href="{{ secure_route('auth.google') }}" title="Google" class="btn-social google"><i class="ri-google-line"></i></a>
         </div>
         <div class="signup">
           Pas encore de compte? <br>
@@ -43,7 +43,7 @@
          <i class="ri-car-fill"></i>
       </div>
       <div class="title">Eneo Fleet Services</div>
-      <form action="{{ route('login') }}" method="POST">
+      <form action="{{ secure_route('login') }}" method="POST">
        @csrf
         <div class="field">
           <label for="name"><i class="ri-user-line"> Nom </i></label>

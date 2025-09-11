@@ -29,7 +29,7 @@
     <div class="right">
       <h1> BIENVENUE</h1>
       <p>Creez votre compte</p>
-      <form action="{{ url('/register') }}" method="POST" class="form">
+      <form action="{{ secure_url('/register') }}" method="POST" class="form">
             @csrf
         <div class="field">
           <label>Nom</label>
