@@ -8,12 +8,6 @@ RUN apt-get update && apt-get install -y zip unzip git libzip-dev \
 # Installer Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-php artisan config:clear
-php artisan cache:clear
-php artisan route:clear
-php artisan view:clear
-
-
 # Copier le projet
 WORKDIR /var/www/html
 COPY . .
