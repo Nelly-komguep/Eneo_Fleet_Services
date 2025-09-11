@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use App\Models\Job;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
@@ -95,6 +96,20 @@ class AuthController extends Controller
             'profile_image' => $imageUrl,
             'jobs' => $request->jobs,
         ]);
+
+        $recaptchaResponse = $request->input('g-recaptcha-response');
+$secret = env('RECAPTCHA_SECRET_KEY');
+
+$response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+    'secret' => $secret,
+    'response' => $recaptchaResponse,
+]);
+
+$result = json_decode($response->body());
+if(!$result->success){
+    return back()->withErrors(['captcha' => 'ReCAPTCHA invalide']);
+}
+
 
         // Connecter automatiquement l'utilisateur
         Auth::login($user);
