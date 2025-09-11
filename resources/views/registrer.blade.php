@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-   <link rel="stylesheet" href="{{ asset('css/register.css')}}">
+   <link rel="stylesheet" href="{{ secure_asset('css/register.css')}}">
    <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>Registrer</title>
 </head>
@@ -104,7 +104,7 @@
   </div>
 
    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-   <script src="{{ asset('js/register.js') }}"></script>
+   <script src="{{ secure_asset('js/register.js') }}"></script>
 <script>
 $(document).ready(function () {
     let selectedJobs = [];

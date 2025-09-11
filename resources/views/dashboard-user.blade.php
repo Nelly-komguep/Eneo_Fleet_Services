@@ -7,7 +7,7 @@
 
     <!-- CSS principal -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css"/>
-    <link rel="stylesheet" href="{{ asset('css/dashboard_user.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/dashboard_user.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -377,7 +377,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="{{ asset('js/dashboard-user.js') }}"></script>
+    <script src="{{ secure_asset('js/dashboard-user.js') }}"></script>
 
     <!-- Affichage des messages de session -->
     @if(session('success'))

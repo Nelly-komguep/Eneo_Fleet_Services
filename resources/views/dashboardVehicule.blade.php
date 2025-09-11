@@ -3,7 +3,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css">
-<link rel="stylesheet" href="{{ asset('css/dashboardVehicule.css')}}">
+<link rel="stylesheet" href="{{ secure_asset('css/dashboardVehicule.css')}}">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <title>Dashboard Disponibilite</title>
 
@@ -352,6 +352,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="{{ asset('js/dashboardVehicule.js') }}"></script>
+  <script src="{{ secure_asset('js/dashboardVehicule.js') }}"></script>
 </body>
 </html>
