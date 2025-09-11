@@ -1,22 +1,29 @@
-FROM php:8.2-apache
+# Étape 1 : base PHP avec extensions nécessaires
+FROM php:8.2-fpm
 
+# Installer les dépendances
 RUN apt-get update && apt-get install -y \
-    unzip git curl libpng-dev libonig-dev libxml2-dev zip \
+    libzip-dev zip unzip git curl \
     && docker-php-ext-install pdo pdo_mysql
 
-RUN a2enmod rewrite
+# Installer Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
-COPY . /var/www/html
-
+# Définir le répertoire de travail
 WORKDIR /var/www/html
 
+# Copier les fichiers de l'application
+COPY . .
+
+# Installer les dépendances PHP
 RUN composer install --no-dev --optimize-autoloader
 
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+# Donner les permissions
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 755 /var/www/html/storage /var/www/html/bootstrap/cache
 
-RUN sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available/000-default.conf \
-    && sed -i 's|/var/www/|/var/www/html/public|g' /etc/apache2/apache2.conf
+# Exposer le port
+EXPOSE 9000
 
-EXPOSE 80
-CMD ["apache2-foreground"]
+# Commande pour démarrer PHP-FPM
+CMD ["php-fpm"]
