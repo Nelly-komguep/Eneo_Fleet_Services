@@ -1,7 +1,7 @@
-=# Étape 1 : Image de base PHP avec Apache
+# Étape 1 : Base PHP avec Apache
 FROM php:8.2-apache
 
-# Installer extensions PHP nécessaires à Laravel
+# Installer les extensions nécessaires à Laravel
 RUN apt-get update && apt-get install -y \
     unzip git curl libpng-dev libonig-dev libxml2-dev zip \
     && docker-php-ext-install pdo pdo_mysql
@@ -18,18 +18,18 @@ COPY . /var/www/html
 # Définir le répertoire de travail
 WORKDIR /var/www/html
 
-# Installer les dépendances PHP avec Composer
+# Installer les dépendances PHP de Laravel
 RUN composer install --no-dev --optimize-autoloader
-
-# Changer DocumentRoot pour pointer vers /public
-RUN sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available/000-default.conf \
-    && sed -i 's|/var/www/|/var/www/html/public|g' /etc/apache2/apache2.conf
 
 # Donner les permissions correctes
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
+# Configurer Apache pour pointer sur /public
+RUN sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available/000-default.conf \
+    && sed -i 's|/var/www/|/var/www/html/public|g' /etc/apache2/apache2.conf
+
 # Exposer le port 80
 EXPOSE 80
 
-# Commande de démarrage
+# Démarrer Apache
 CMD ["apache2-foreground"]
