@@ -70,7 +70,7 @@
         <div class="field full">
               <!-- reCAPTCHA -->
     {{-- {!! NoCaptcha::display() !!} --}}
-    <div class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}"></div>
+    <div class="g-recaptcha" data-sitekey="{{ env('NOCAPTCHA_SITEKEY') }}"></div>
 
 
     @if ($errors->has('g-recaptcha-response'))
