@@ -145,6 +145,8 @@
           </div>
 
           <!-- ================= STEP 2 ================= -->
+          <form id="reservationForm" method="POST" action="{{ route('reserve.store') }}">
+          @csrf
           <div class="step step-2 d-none">
             <div class="mb-3">
               <label for="places" class="form-label">Nombre de places</label>
@@ -184,6 +186,7 @@
             </div>
           </div>
 
+        </form>
         </form>
       </div>
 

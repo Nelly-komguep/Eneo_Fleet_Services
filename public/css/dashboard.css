@@ -71,7 +71,7 @@ a {
 .admin-profile {
   display: flex;
   align-items: center;
-  margin-top: 340px;
+  margin-top: 300px;
   gap: 10px;
   color: white;
 }
