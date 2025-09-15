@@ -16,7 +16,7 @@
   <h2>MENU</h2>
   <ul>
     <li class="menu-item active"><i class="ri-dashboard-line"></i> Dashboard</li>
-    <a href="{{ secure_url('dashboardVehicule') }}" style="text-decoration: none; color:aliceblue;">
+    <a href="{{ route('dashboardVehicule') }}" style="text-decoration: none; color:aliceblue;">
       <li class="menu-item"><i class="ri-car-line"></i> Management des véhicules</li>
     </a>
     <li class="menu-item disabled"><i class="ri-tools-fill"></i> Maintenance</li>
@@ -38,7 +38,7 @@
     </div>
     <div class="admin-info">
       <strong>{{ Auth::user()->name }} ({{ Auth::user()->role }})</strong>
-      <a href="{{ secure_url('logout') }}" class="logout-link">Se déconnecter</a>
+      <a href="{{ route('logout') }}" class="logout-link">Se déconnecter</a>
     </div>
   </div>
 </div>
@@ -96,7 +96,7 @@
 
       <!-- Formulaire multi-step  -->
       <div class="modal-body">
-        <form id="reservationForm" method="POST" action="{{ secure_url('reserve.store') }}">
+        <form id="reservationForm" method="POST" action="{{ route('reserve.store') }}">
           @csrf
 
           <!-- ================= STEP 1 ================= -->

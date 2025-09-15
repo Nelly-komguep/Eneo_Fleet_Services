@@ -38,7 +38,7 @@
   <div class="admin-info">
 
     <strong>{{ Auth::user()->name }} ({{ Auth::user()->role }})</strong>
-    <a href="{{ secure_url('logout') }}" class="logout-link">Se déconnecter</a>
+    <a href="{{ route('logout') }}" class="logout-link">Se déconnecter</a>
   </div>
 </div>
 
@@ -138,7 +138,7 @@
   <div class="modal-content">
     <h2>Ajouter un véhicule</h2>
 
-    <form id="vehiculeForm" class="form-step" action="{{ secure_url('vehicules.store.dashboard') }}" method="POST">
+    <form id="vehiculeForm" class="form-step" action="{{ route('vehicules.store.dashboard') }}" method="POST">
       @csrf
 
       <div class="form-group">
