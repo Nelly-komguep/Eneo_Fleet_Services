@@ -67,16 +67,16 @@
           <label for="code">Code</label>
             <input type="text" id="code" name="code" required disabled />
         </div>
-        {{-- <div class="field full"> --}}
+        <div class="field full">
               <!-- reCAPTCHA -->
     {{-- {!! NoCaptcha::display() !!} --}}
-    {{-- <div class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}"></div> --}}
+    <div class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}"></div>
 
 
-    {{-- @if ($errors->has('g-recaptcha-response'))
+    @if ($errors->has('g-recaptcha-response'))
         <span class="text-danger">{{ $errors->first('g-recaptcha-response') }}</span>
     @endif
-        </div> --}}
+        </div>
 
         <div class="field">
         <button type="submit">Enregistrer</button>
@@ -178,6 +178,6 @@ $("#name, #email").on("blur", function() {
 </script>
 
 <!-- Script JS reCAPTCHA -->
-{{-- {!! NoCaptcha::renderJs() !!} --}}
+{!! NoCaptcha::renderJs() !!}
 </body>
 </html>
