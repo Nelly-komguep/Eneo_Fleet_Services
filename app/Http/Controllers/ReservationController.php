@@ -216,7 +216,7 @@ public function destroy($id)
 
 public function index()
 {
-    $reservations = reservation::all();
+    $reservations = Reservation::all();
     return view('dashboard', compact('reservations'));
 }
  // Export PDF
