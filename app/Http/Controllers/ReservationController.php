@@ -60,7 +60,7 @@ class ReservationController extends Controller
 
     public function dashboardreservation() {
     // Pour le tableau paginé
-    // $reservations = Reservation::with('user')->orderBy('created_at', 'desc')->paginate(10);
+    $reservations = Reservation::with('user')->orderBy('created_at', 'desc')->paginate(10);
 
     // Pour les statistiques et diagrammes
     $allReservations = Reservation::all();
