@@ -95,97 +95,7 @@
       </div>
 
       <!-- Formulaire multi-step  -->
-
-      <form id="reservationForm" method="POST" action="{{ route('reserve.store') }}">
-    @csrf
-
-    <!-- ================= STEP 1 ================= -->
-    <div class="step step-1">
-        <div class="mb-3">
-            <label for="type" class="form-label">Type de réservation</label>
-            <select class="form-select" id="type" name="type_reservation" required>
-                <option value="vehicule">Véhicule</option>
-                <option value="vehicule_chauffeur">Véhicule + Chauffeur</option>
-                <option value="chauffeur">Chauffeur</option>
-            </select>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <label for="du" class="form-label">Du *</label>
-                <input type="date" class="form-control" id="du" name="date_depart" required>
-            </div>
-            <div class="col-md-6 mb-3">
-                <label for="au" class="form-label">Au *</label>
-                <input type="date" class="form-control" id="au" name="date_arrivee" required>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <label for="de" class="form-label">De *</label>
-                <select class="form-select" id="de" name="lieu_depart" required>
-                    <option value="Douala">Douala</option>
-                    <option value="Yaounde">Yaoundé</option>
-                </select>
-            </div>
-            <div class="col-md-6 mb-3">
-                <label for="a" class="form-label">A *</label>
-                <select class="form-select" id="a" name="lieu_arrive" required>
-                    <option value="Yaounde">Yaoundé</option>
-                    <option value="Limbe">Limbe</option>
-                    <option value="Kribi">Kribi</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="d-flex justify-content-end">
-            <button type="button" class="btn btn-primary next-step">Suivant</button>
-        </div>
-    </div>
-
-    <!-- ================= STEP 2 ================= -->
-    <div class="step step-2 d-none">
-        <div class="mb-3">
-            <label for="places" class="form-label">Nombre de places</label>
-            <input type="number" class="form-control" id="places" name="nombre_places" min="1">
-        </div>
-
-        <div class="mb-3">
-            <label for="passagers" class="form-label">Liste des passagers</label>
-            <input type="text" class="form-control" id="passagers" name="liste_passagers" placeholder="Saisir la liste des passagers">
-        </div>
-
-        <div class="mb-3">
-            <label for="motif" class="form-label">Motif</label>
-            <input type="text" class="form-control" id="motif" name="motif" placeholder="Saisir le motif de la réservation">
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">OM validé ? *</label><br>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="om" id="omOui" value="Oui" required>
-                <label class="form-check-label" for="omOui">Oui</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="om" id="omNon" value="Non">
-                <label class="form-check-label" for="omNon">Non</label>
-            </div>
-        </div>
-
-        <div class="mb-3">
-            <label for="ordre" class="form-label">Ordre de Mission</label>
-            <textarea class="form-control" id="ordre" name="ordre_mission" rows="3"></textarea>
-        </div>
-
-        <div class="d-flex justify-content-between">
-            <button type="button" class="btn btn-secondary prev-step">Précédent</button>
-            <button type="submit" class="btn btn-success">Envoyer</button>
-        </div>
-    </div>
-</form>
-
-      {{-- <div class="modal-body">
+      <div class="modal-body">
         <form id="reservationForm" method="POST" action="{{ route('reserve.store') }}">
           @csrf
 
@@ -275,7 +185,7 @@
             </div>
           </div>
 
-        </form> --}}
+        </form>
       </div>
 
     </div>
