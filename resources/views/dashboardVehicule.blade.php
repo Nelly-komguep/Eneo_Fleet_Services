@@ -13,7 +13,7 @@
 <div class="sidebar">
   <h2>MENU</h2>
   <ul>
-    <a href="{{ route('dashboard') }}" style="text-decoration: none; color:aliceblue;"><li class="menu-item"><i class="ri-dashboard-line"></i>Dashboard</li></a>
+    <a href="{{ secure_url('dashboard') }}" style="text-decoration: none; color:aliceblue;"><li class="menu-item"><i class="ri-dashboard-line"></i>Dashboard</li></a>
     <li class="menu-item active"><i class="ri-car-line"></i> Management des vehicules</li>
     <li class="menu-item"><i class="ri-tools-fill"></i> Maintenance</li>
     <li class="menu-item"><i class="ri-add-box-line"></i> Renouvellement de pieces</li>
@@ -38,7 +38,7 @@
   <div class="admin-info">
 
     <strong>{{ Auth::user()->name }} ({{ Auth::user()->role }})</strong>
-    <a href="{{ route('logout') }}" class="logout-link">Se déconnecter</a>
+    <a href="{{ secure_url('logout') }}" class="logout-link">Se déconnecter</a>
   </div>
 </div>
 
@@ -138,7 +138,7 @@
   <div class="modal-content">
     <h2>Ajouter un véhicule</h2>
 
-    <form id="vehiculeForm" class="form-step" action="{{ route('vehicules.store.dashboard') }}" method="POST">
+    <form id="vehiculeForm" class="form-step" action="{{ secure_url('vehicules.store.dashboard') }}" method="POST">
       @csrf
 
       <div class="form-group">
@@ -197,7 +197,7 @@
 <div id="editVehiculeModal" class="modal"  style="display:none;">
   <div class="modal-content">
     <h2>Modifier le véhicule</h2>
-    <form id="editVehiculeForm" method="POST"  method="POST" action="{{ route('vehicules.update', $vehicule->id) }}"> 
+    <form id="editVehiculeForm" method="POST"  method="POST" action="{{ secure_url('vehicules.update', $vehicule->id) }}"> 
       @csrf
       @method('PUT')
       <input type="hidden" name="vehicule_id" id="editVehiculeId">
