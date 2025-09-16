@@ -83,7 +83,7 @@
         </thead>
      
          <tbody>
-  {{-- @foreach($vehicules as $vehicule) --}}
+  @foreach($vehicules as $vehicule)
   <tr>
     <td><input type="checkbox" /></td>
     <td style="display:flex; align-items:center; gap:10px;">
@@ -128,7 +128,7 @@
 
     </td>
   </tr>
-  {{-- @endforeach --}}
+  @endforeach
 </tbody>
     
       </table>

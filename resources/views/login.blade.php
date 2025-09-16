@@ -28,8 +28,8 @@
       <div class="left-bottom">
         <div class="social" aria-label="Connexion sociale">
           {{-- <a href="{{ route('login.facebook') }}" title="Facebook"><i class="ri-facebook-fill"></i></a> --}}
-          <a href="{{ secure_url('login.twitter') }}" title="Twitter"><i class="ri-twitter-x-line"></i></a>
-          <a href="{{ secure_url('auth.google') }}" title="Google" class="btn-social google"><i class="ri-google-line"></i></a>
+          <a href="{{ route('login.twitter') }}" title="Twitter"><i class="ri-twitter-x-line"></i></a>
+          <a href="{{ route('auth.google') }}" title="Google" class="btn-social google"><i class="ri-google-line"></i></a>
         </div>
         <div class="signup">
           Pas encore de compte? <br>
