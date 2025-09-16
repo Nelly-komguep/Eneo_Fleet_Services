@@ -7,6 +7,12 @@ use App\Models\Vehicule;
 
 class VehiculeController extends Controller
 {
+    public function edit($id)
+{
+    $vehicule = Vehicule::findOrFail($id);
+    return view('vehicules.edit', compact('vehicule'));
+}
+
     public function index()
 {
     $vehicules = Vehicule::all();
