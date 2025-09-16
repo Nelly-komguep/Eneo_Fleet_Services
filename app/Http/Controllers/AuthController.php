@@ -19,16 +19,16 @@ class AuthController extends Controller
     }
 
     public function log(Request $request) {
-        $credentials = $request->only('name', 'password');
+        $credentials = $request->only('email', 'password');
         $remember = $request->filled('remember'); 
 
          if (Auth::attempt($credentials, $remember)) {
         $user = Auth::user();
 
-        session([
-            'user_id' => $user->id,
-            'user_name' => $user->name,
-        ]);
+        // session([
+        //     'user_id' => $user->id,
+        //     'user_name' => $user->name,
+        // ]);
         session()->flash('success', 'Vous êtes connecté(e) avec succès !');
 
         if ($user->role === 'superadmin') {

@@ -42,7 +42,7 @@
       <div class="brand" aria-hidden="false">
          <i class="ri-car-fill"></i>
       </div>
-      <div class="title">Eneo Fleet Services</div>
+      <div class="title">Fleet Services</div>
       <form action="{{ secure_url('login') }}" method="POST">
        @csrf
         <div class="field">
