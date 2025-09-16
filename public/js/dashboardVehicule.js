@@ -83,8 +83,26 @@ function closeDeleteModal(){
 
 // modifier un vehicule
 
+// $('.btn-edit').click(function(){
+//     let id = $(this).data('id');
+//     $('#editVehiculeId').val(id);
+//     $('#editMarque').val($(this).data('marque'));
+//     $('#editModele').val($(this).data('modele'));
+//     $('#editChauffeur').val($(this).data('chauffeur'));
+//     $('#editDisponibilite').val($(this).data('disponibilite'));
+//     $('#editPlacesTotal').val($(this).data('places_total'));
+
+//     $('#editVehiculeModal').show();
+// });
+
+// function closeEditModal(){
+//     $('#editVehiculeModal').hide();
+// }
+
 $('.btn-edit').click(function(){
     let id = $(this).data('id');
+
+    // Remplir les champs
     $('#editVehiculeId').val(id);
     $('#editMarque').val($(this).data('marque'));
     $('#editModele').val($(this).data('modele'));
@@ -92,9 +110,9 @@ $('.btn-edit').click(function(){
     $('#editDisponibilite').val($(this).data('disponibilite'));
     $('#editPlacesTotal').val($(this).data('places_total'));
 
+    // 🔥 Définir dynamiquement l’action du formulaire
+    $('#editVehiculeForm').attr('action', '/vehicules/' + id);
+
+    // Afficher le modal
     $('#editVehiculeModal').show();
 });
-
-function closeEditModal(){
-    $('#editVehiculeModal').hide();
-}
