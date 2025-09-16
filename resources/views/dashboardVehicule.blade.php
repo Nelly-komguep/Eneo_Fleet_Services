@@ -83,7 +83,7 @@
         </thead>
      
          <tbody>
-  @foreach($vehicules as $vehicule)
+  {{-- @foreach($vehicules as $vehicule) --}}
   <tr>
     <td><input type="checkbox" /></td>
     <td style="display:flex; align-items:center; gap:10px;">
@@ -128,7 +128,7 @@
 
     </td>
   </tr>
-  @endforeach
+  {{-- @endforeach --}}
 </tbody>
     
       </table>
@@ -197,7 +197,7 @@
 <div id="editVehiculeModal" class="modal"  style="display:none;">
   <div class="modal-content">
     <h2>Modifier le véhicule</h2>
-    <form id="editVehiculeForm" method="POST"  method="POST" action="{{ route('vehicules.update', $vehicules->id) }}"> 
+    <form id="editVehiculeForm" method="POST"  method="POST" action="{{ route('vehicules.update', $vehicule->id) }}"> 
       @csrf
       @method('PUT')
       <input type="hidden" name="vehicule_id" id="editVehiculeId">
