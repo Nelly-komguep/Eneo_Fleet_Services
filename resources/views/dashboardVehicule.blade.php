@@ -197,7 +197,7 @@
 <div id="editVehiculeModal" class="modal"  style="display:none;">
   <div class="modal-content">
     <h2>Modifier le véhicule</h2>
-    <form id="editVehiculeForm" method="POST"  method="POST" action="{{ route('vehicules.update', $vehicule->id) }}"> 
+    <form id="editVehiculeForm" method="POST"  method="POST" action="{{ route('vehicules.update') }}"> 
       @csrf
       @method('PUT')
       <input type="hidden" name="vehicule_id" id="editVehiculeId">
