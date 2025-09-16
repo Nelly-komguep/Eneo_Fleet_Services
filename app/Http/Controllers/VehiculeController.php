@@ -17,7 +17,7 @@ class VehiculeController extends Controller
 {
     $vehicule = Vehicule::all();
 
-    return view('dashboardVehicule', compact('vehicules'));
+    return view('dashboardVehicule', compact('vehicule'));
 
 }
 public function store(Request $request)
