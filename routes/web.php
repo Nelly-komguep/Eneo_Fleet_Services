@@ -69,8 +69,8 @@ Route::get('/dashboard-superAdmin/statut/{statut}', [ReservationController::clas
 Route::get('/check-unique', [App\Http\Controllers\AuthController::class, 'checkUnique'])->name('check.unique');
 Route::post('/check-field', [AuthController::class, 'checkField']);
 
-Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('auth.google');
-Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('google.callback');
+Route::get('auth/google', [GoogleController::class, 'redirect'])->name('auth.google');
+Route::get('auth/google/callback', [GoogleController::class, 'Callback']);
 
 // Route::get('login/phone', [PhoneAuthController::class, 'showPhoneForm'])->name('login.phone');
 // Route::post('login/phone/send', [PhoneAuthController::class, 'sendOTP'])->name('phone.send');

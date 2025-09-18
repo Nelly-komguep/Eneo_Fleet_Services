@@ -10,12 +10,12 @@ use Illuminate\Support\Str;
 
 class GoogleController extends Controller
 {
-    public function redirectToGoogle()
+    public function redirect()
     {
         return Socialite::driver('google')->redirect();
     }
 
-    public function handleGoogleCallback()
+    public function Callback()
     {
         try {
             $googleUser = Socialite::driver('google')->user();
