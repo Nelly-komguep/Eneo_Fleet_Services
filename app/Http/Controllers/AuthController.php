@@ -19,7 +19,7 @@ class AuthController extends Controller
     }
 
     public function log(Request $request) {
-        $credentials = $request->only('name', 'password');
+        $credentials = $request->only('email', 'password');
         $remember = $request->filled('remember'); 
 
          if (Auth::attempt($credentials, $remember)) {
