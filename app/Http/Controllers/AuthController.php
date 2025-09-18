@@ -40,9 +40,7 @@ class AuthController extends Controller
         }
     }
 
-        return back()->withErrors([
-            'namepassword' => 'Les identifiants sont incorrects.',
-        ]);
+        return back()->with('error', 'Les identifiants sont incorrects.');
     }
     public function showRegistration() {
        return view('registrer');
