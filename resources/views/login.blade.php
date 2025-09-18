@@ -45,10 +45,15 @@
       <div class="title">Fleet Services</div>
       <form action="{{ secure_url('login') }}" method="POST">
        @csrf
-        <div class="field">
-          <label for="name"><i class="ri-user-line"> Nom </i></label>
+        {{-- <div class="field">
+          <label for="name"><i class="ri-user-line"> N </i></label>
           <input class="input" id="name" name="name" type="text" placeholder="Entrer votre nom" autocomplete="username" />
-        </div>
+        </div> --}}
+        <div class="field">
+  <label for="email"><i class="ri-mail-line"> Email </i></label>
+  <input class="input" id="email" name="email" type="email" placeholder="Entrer votre email" autocomplete="username" />
+</div>
+
 
         <div class="field">
           <label for="password"><i class="ri-key-fill"> Mot de passe </i></label>
